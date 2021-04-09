@@ -44,9 +44,11 @@ jobs:
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         args: >
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.projectKey=marve39_tvloka
           -Dsonar.flex.cobertura.reportPaths=c1/coverage.xml
           -Dsonar.testExecutionReportPaths=c1/junit.xml
+          -Dsonar.login=${SONAR_TOKEN}
