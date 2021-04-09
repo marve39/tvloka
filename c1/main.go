@@ -13,20 +13,22 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const LINE_SEPARATOR = "-------------------------------------"
+
 func main() {
 	printBanner()
 	log.Println(strings.Join(Run(os.Stdin), "\n"))
 }
 
 func printBanner() bool {
-	fmt.Println("-------------------------------------")
+	fmt.Println(LINE_SEPARATOR)
 	fmt.Println("- Extract Github data - Application -")
-	fmt.Println("-------------------------------------")
+	fmt.Println(LINE_SEPARATOR)
 	fmt.Println("- Put your repo list with format    -")
 	fmt.Println("- @org/@repo, 1 repo for each line  -")
 	fmt.Println("- end with blank line               -")
 	fmt.Println("- Require : GITHUB_TOKEN as env     -")
-	fmt.Println("-------------------------------------")
+	fmt.Println(LINE_SEPARATOR)
 	fmt.Println("")
 	return true
 }
