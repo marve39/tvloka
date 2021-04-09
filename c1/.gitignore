@@ -1,0 +1,4 @@
+coverage*
+bin
+test-result.*
+tmp_trivy

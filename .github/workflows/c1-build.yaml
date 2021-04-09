@@ -1,0 +1,51 @@
+name: c1-build
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+# defaults:
+#   run:
+#     working-directory: backend
+jobs:
+  quality:
+    name: c1-build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.16.x
+    - name: Install Go-Test
+      run:  go get -u golang.org/x/lint/golint
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v2
+      with:
+        path: ~\.sonar\cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+    - name: run-ci
+      working-directory: ./c1
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run:  make run-ci
+    - name: Analyze with SonarCloud
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.projectKey=marve39_tvloka
+          -Dsonar.sources=c1/.
+          -Dsonar.tests=c1/.
+          -Dsonar.test.inclusions=**/*_test.go
+          -Dsonar.go.tests.reportPaths=c1/test-result.json
+          -Dsonar.go.coverage.reportPaths=c1/coverage.out
+          -Dsonar.login=${SONAR_TOKEN}
+          -Dsonar.organization=marve39
