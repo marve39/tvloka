@@ -35,9 +35,9 @@ jobs:
       working-directory: ./c1
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run:  make run-ci && cat coverage.xml
+      run:  make run-ci
     - name: fix code coverage paths
-      working-directory: ./backend
+      working-directory: ./c1
       run: |
         sed -i 's/\/home\/runner\/work\/tvloka\/tvloka\//\/github\/workspace\//g' coverage.xml
     - name: Analyze with SonarCloud
