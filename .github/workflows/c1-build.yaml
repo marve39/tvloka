@@ -18,10 +18,7 @@ jobs:
       with:
         go-version: 1.16.x
     - name: Install Go-Test
-      run:  go get -u golang.org/x/lint/golint && 
-            go get -u github.com/axw/gocov/... && 
-            go get -u github.com/AlekSi/gocov-xml && 
-            go get -u github.com/jstemmer/go-junit-report
+      run:  go get -u golang.org/x/lint/golint
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
@@ -36,10 +33,10 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:  make run-ci
-    - name: fix code coverage paths
-      working-directory: ./c1
-      run: |
-        sed -i 's/\/home\/runner\/work\/tvloka\/tvloka\//\/github\/workspace\//g' coverage.xml
+    # - name: fix code coverage paths
+    #   working-directory: ./c1
+    #   run: |
+    #     sed -i 's/\/home\/runner\/work\/tvloka\/tvloka\//\/github\/workspace\//g' coverage.xml
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
@@ -49,7 +46,7 @@ jobs:
         args: >
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.projectKey=marve39_tvloka
-          -Dsonar.flex.cobertura.reportPaths=c1/coverage.xml
-          -Dsonar.testExecutionReportPaths=c1/test-result.xml
+          -Dsonar.go.tests.reportPaths=c1/test-result.json
+          -Dsonar.go.coverage.reportPaths=c1/coverage.out
           -Dsonar.login=${SONAR_TOKEN}
           -Dsonar.organization=marve39

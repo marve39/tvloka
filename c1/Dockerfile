@@ -1,16 +1,13 @@
 FROM golang:1.16.3-alpine3.13 as test-base
 RUN apk update && apk add build-base
-RUN go get -u golang.org/x/lint/golint && \
-    go get github.com/axw/gocov/... && \
-    go get github.com/AlekSi/gocov-xml && \
-    go get -u github.com/jstemmer/go-junit-report
+RUN go get -u golang.org/x/lint/golint
 
 FROM test-base as test 
 ARG GITHUB_TOKEN
 WORKDIR /app 
 ADD . . 
 RUN go get -a && make run-ci
-RUN if [[ $(grep -c "\"fail"\" test-result.xml) != 0 ]];then exit 2;fi
+RUN if [[ $(grep -c "\"fail"\" test-result.json) != 0 ]];then exit 2;fi
 RUN make build 
 
 

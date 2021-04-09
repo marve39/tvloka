@@ -44,8 +44,7 @@ ci-vet:
 .PHONY: ci-test
 ci-test:
 	@echo "---> Running test"
-	go test -v ./... -coverprofile=coverage.out -json | tee test-result.xml
-	gocov convert coverage.out | gocov-xml > coverage.xml
+	go test -v ./... -coverprofile=coverage.out -json | tee test-result.json
 
 .PHONY: ci-test-unit
 ci-test-unit:
@@ -68,7 +67,7 @@ clean:
 	go mod tidy
 	rm -rf $(BUILDDIR)
 	rm -rf coverage.*
-	rm -rf test-result.xml
+	rm -rf test-result.*
 	go clean -cache
 	rm -rf $(GOPKGDIR)
 
