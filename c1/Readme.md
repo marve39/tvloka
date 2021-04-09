@@ -1,6 +1,8 @@
 # Devops Challenge 1
 
 This application intend to answer devops challenge 
+Quality Gate : 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=marve39_tvloka&metric=coverage)](https://sonarcloud.io/dashboard?id=marve39_tvloka) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=marve39_tvloka&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=marve39_tvloka) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=marve39_tvloka&metric=security_rating)](https://sonarcloud.io/dashboard?id=marve39_tvloka) [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=marve39_tvloka)](https://sonarcloud.io/dashboard?id=marve39_tvloka) [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=marve39_tvloka)
 
 # Overview
 ## Background
