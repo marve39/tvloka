@@ -10,7 +10,7 @@ ARG GITHUB_TOKEN
 WORKDIR /app 
 ADD . . 
 RUN go get -a && make run-ci
-RUN if [[ $(grep -c "FAIL:" junit.out) != 0 ]];then exit 2;fi
+RUN if [[ $(grep -c "\"fail"\" test-result.xml) != 0 ]];then exit 2;fi
 RUN make build 
 
 

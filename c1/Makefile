@@ -34,7 +34,7 @@ run-ci:
 .PHONY: ci-lint
 ci-lint:
 	@echo "---> Running lint check"
-	golint g./...
+	golint ./...
 
 .PHONY: ci-vet
 ci-vet:
@@ -44,8 +44,7 @@ ci-vet:
 .PHONY: ci-test
 ci-test:
 	@echo "---> Running test"
-	go test -v ./... -coverprofile=coverage.out | tee junit.out
-	cat junit.out | go-junit-report > junit.xml
+	go test -v ./... -coverprofile=coverage.out -json | tee test-result.xml
 	gocov convert coverage.out | gocov-xml > coverage.xml
 
 .PHONY: ci-test-unit
@@ -69,14 +68,14 @@ clean:
 	go mod tidy
 	rm -rf $(BUILDDIR)
 	rm -rf coverage.*
-	rm -rf junit.*
+	rm -rf test-result.xml
 	go clean -cache
 	rm -rf $(GOPKGDIR)
 
 .PHONY: docker-build
 docker-build:
 	@echo "---> Building Docker Image."
-	# DOCKER_BUILDKIT=1 docker build --progress plain --tag c1-bin:latest --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --file Dockerfile .
+	DOCKER_BUILDKIT=1 docker build --progress plain --tag c1-bin:latest --build-arg GITHUB_TOKEN=${GITHUB_TOKEN} --file Dockerfile .
 	mkdir -p tmp_trivy
 	docker run --rm -v ${PWD}/tmp_trivy:/root/.cache/ -v /var/run/docker.sock:/var/run/docker.sock \
     aquasec/trivy --exit-code 1 --severity CRITICAL c1-bin:latest
