@@ -2,7 +2,7 @@ name: c1-build
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 # defaults:
