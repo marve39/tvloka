@@ -52,3 +52,4 @@ jobs:
           -Dsonar.flex.cobertura.reportPaths=c1/coverage.xml
           -Dsonar.testExecutionReportPaths=c1/junit.xml
           -Dsonar.login=${SONAR_TOKEN}
+          -Dsonar.organization=marve39a
