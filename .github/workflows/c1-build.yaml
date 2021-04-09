@@ -27,6 +27,7 @@ jobs:
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
     - name: run-ci
+      working-directory: ./c1
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:  make run-ci && cat coverage.xml
