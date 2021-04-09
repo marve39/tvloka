@@ -1,0 +1,30 @@
+version: '3'
+services:
+  httpd:
+    image: bitnami/nginx:latest
+    restart: always
+    ports:
+      - "80:8080"
+    volumes:
+      - ./nginx/www:/app
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+  fluentd:
+    image: marve39/fluentd:v1.12-1-es
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    restart: always
+  elasticsearch:
+    image: bitnami/elasticsearch:7.12.0
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+  kibana:
+    image: bitnami/kibana:7.10.2
+    ports:
+      - "5601:5601"
