@@ -18,9 +18,9 @@ jobs:
       with:
         go-version: 1.16.x
     - name: Install Go-Test
-      run:  go get -u golang.org/x/lint/golint && \
-            go get github.com/axw/gocov/... && \
-            go get github.com/AlekSi/gocov-xml && \
+      run:  go get -u golang.org/x/lint/golint && 
+            go get -u github.com/axw/gocov/... && 
+            go get -u github.com/AlekSi/gocov-xml && 
             go get -u github.com/jstemmer/go-junit-report
     - uses: actions/checkout@v2
       with:
