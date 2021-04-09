@@ -43,7 +43,7 @@ jobs:
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.projectKey=marve39_tvloka
           -Dsonar.sources=c1/
-          -Dsonar.test.inclusions=**/*_test.go,**_test.go
+          -Dsonar.test.inclusions=c1/**_test.go
           -Dsonar.go.tests.reportPaths=c1/test-result.json
           -Dsonar.go.coverage.reportPaths=c1/coverage.out
           -Dsonar.login=${SONAR_TOKEN}
