@@ -49,3 +49,5 @@ jobs:
         args: >
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.projectKey=marve39_tvloka
+          -Dsonar.flex.cobertura.reportPaths=c1/coverage.xml
+          -Dsonar.testExecutionReportPaths=c1/junit.xml
