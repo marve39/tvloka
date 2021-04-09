@@ -33,10 +33,6 @@ jobs:
       env: 
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:  make run-ci
-    # - name: fix code coverage paths
-    #   working-directory: ./c1
-    #   run: |
-    #     sed -i 's/\/home\/runner\/work\/tvloka\/tvloka\//\/github\/workspace\//g' coverage.xml
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
       env:
@@ -46,6 +42,8 @@ jobs:
         args: >
           -Dsonar.host.url=https://sonarcloud.io
           -Dsonar.projectKey=marve39_tvloka
+          -Dsonar.sources=c1/
+          -Dsonar.test.inclusions=**/*_test.go
           -Dsonar.go.tests.reportPaths=c1/test-result.json
           -Dsonar.go.coverage.reportPaths=c1/coverage.out
           -Dsonar.login=${SONAR_TOKEN}
